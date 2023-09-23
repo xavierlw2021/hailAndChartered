@@ -128,9 +128,8 @@ def callback(request):
                     #     quick_reply=QuickReply(items=date_list)
                     # ))
                 elif p_action == "ch2Date":
-                    chId = data.get('chId')
-                    dataStr = str(data)
-                    message.append(TextSendMessage(tesxt = f"{dataStr}"))
+                    chId = data.get('chId')                    
+                    message.append(TextSendMessage(tesxt = f"{len(data)}"))
                     # message.append(TextSendMessage(text="請問您什麼時間要出發呢?",
                     #                                quick_reply=QuickReply(
                     #                                    items=[
