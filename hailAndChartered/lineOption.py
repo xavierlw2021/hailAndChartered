@@ -103,7 +103,7 @@ def CharteredList():
                                     {
                                         "type": "text",
                                         "text": "半天(5小時)",
-                                        "color": "#1A3852"
+                                        "color": "#1A3852",
                                         "wrap": True,
                                         "weight": "bold",
                                         "size": "md",
@@ -123,7 +123,7 @@ def CharteredList():
                                     {
                                         "type": "text",
                                         "text": "全天(10小時)",
-                                        "color": "#1A3852"
+                                        "color": "#1A3852",
                                         "wrap": True,
                                         "weight": "bold",
                                         "size": "md",
@@ -142,7 +142,7 @@ def CharteredList():
                                     {
                                         "type": "text",
                                         "text": "逾時",
-                                        "color": "#1A3852"
+                                        "color": "#1A3852",
                                         "weight": "bold",
                                         "size": "sm",
                                         "flex": 1,
