@@ -14,7 +14,9 @@ def HeilList():
                 "size": "full",
                 "aspectRatio": "20:13",
                 "aspectMode": "cover",
-                "url": agcs.imgUrl
+                "url": agcs.imgUrl,                
+                "position": "relative",
+                "backgroundColor": "#F6F1F1"
             },
             "body": {
                 "type": "box",
@@ -26,13 +28,14 @@ def HeilList():
                         "wrap": True,
                         "weight": "bold",
                         "size": "xl",
-                        "color": "#3C486B"
+                        "color": "#000000"
                     },                                          
                     {
                         "type": "separator",
                         "margin": "sm"
                     }
-                ]
+                ],                
+                "backgroundColor": "#F6F1F1"
             },
             "footer": {
                 "type": "box",
@@ -48,7 +51,7 @@ def HeilList():
                         "label": "連結",
                         "uri": str(agcs.agencyUrl)
                     },
-                    "color": "#F9D949"
+                    "color": "#146C94"
                 },
                 {
                     "type": "box",
