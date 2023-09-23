@@ -95,6 +95,8 @@ def callback(request):
                     message.append(HeilList())
                 elif p_action == "chartered":
                     message.append(CharteredList())
+                elif p_action == "charteredCheck":
+                    message.append(CharteredOption())
                 elif p_action == "checkout":
                     message.append(carServiceCheck())
                 elif p_action == 'carOpyionPay':  #結帳 
