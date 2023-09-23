@@ -98,28 +98,44 @@ def callback(request):
                     message.append(CharteredList())                    
                 elif p_action == "charteredCheck": 
                     chId = data.get('chId')
-                    nowT = datetime.datetime.today().date()
-                    # date_list = []
-                    # for d in range(7):
-                    #     newDate = nowT + datetime.timedelta(days=d)
-                    #     date_list.append(
-                    #         QuickReplyButton(
-                    #             action=PostbackAction(
-                    #                 label = f"{newDate}",
-                    #                 display_text = f"{newDate}",
-                    #                 data=f'action=ch2Date&chId={chId}&chdt={newDate}')))
-                    date_list = [   #7天內的日期按鈕串列
-                        (QuickReplyButton(
-                            action=PostbackAction(
-                                label=f'{nowT + datetime.timedelta(days=d)}',
-                                display_text=f'{nowT + datetime.timedelta(days=d)}',
-                                data=f'action=ch2Date&chId={chId}&chdt={nowT + datetime.timedelta(days=d)}'))) for d in range(7)]
+                    nowT = str(datetime.datetime.now())
+                    after7Day = str(datetime.datetime.now() + datetime.timedelta(days=7))
                     message.append(TextSendMessage(
                         text='請問您哪一天要包車呢?',
-                        quick_reply=QuickReply(items=date_list)
+                        quick_reply=QuickReply(
+                            items=[
+                                QuickReplyButton(
+                                    action=DatetimePickerAction(
+                                        label="選擇時間",
+                                        data = f'action=ch2Date&chId={chId}',
+                                        mode = 'datatime',
+                                        initial = nowT[:10]+'t'+nowT[11:16],
+                                        max = after7Day[:10]+'t'+after7Day[11:16],
+                                        min = nowT[:10]+'t'+nowT[11:16])
+                                )
+                            ]
+                        )
                     ))
+
+                    # date_list = [   #7天內的日期按鈕串列
+                    #     (QuickReplyButton(
+                    #         action=PostbackAction(
+                    #             label=f'{nowT + datetime.timedelta(days=d)}',
+                    #             display_text=f'{nowT + datetime.timedelta(days=d)}',
+                    #             data=f'action=ch2Date&chId={chId}&chdt={nowT + datetime.timedelta(days=d)}'))) for d in range(7)]
+                    # message.append(TextSendMessage(
+                    #     text='請問您哪一天要包車呢?',
+                    #     quick_reply=QuickReply(items=date_list)
+                    # ))
                 elif p_action == "ch2Date":
-                    message.append(TextSendMessage(text="ch2Date成功"))
+                    chId = data.get('chId')
+                    dataStr = str(data)
+                    message.append(TextSendMessage(tesxt = f"{dataStr}"))
+                    # message.append(TextSendMessage(text="請問您什麼時間要出發呢?",
+                    #                                quick_reply=QuickReply(
+                    #                                    items=[
+                                                           
+                    #                                    ]))
                 elif p_action == "checkout":
                     message.append(carServiceCheck())
                 elif p_action == 'carOpyionPay':  #結帳 
