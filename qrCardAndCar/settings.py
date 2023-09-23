@@ -1,4 +1,5 @@
 from pathlib import Path
+import os, dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -67,17 +68,20 @@ WSGI_APPLICATION = "qrCardAndCar.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'cardTest',
+#         'USER': 'postgres',
+#         'PASSWORD':'5r5o8t0e7r0',
+#         'HOST':'localhost',
+#         'PORT':'5432',
+#         'CONN_MAX_AGE':500,
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cardTest',
-        'USER': 'postgres',
-        'PASSWORD':'5r5o8t0e7r0',
-        'HOST':'localhost',
-        'PORT':'5432',
-        'CONN_MAX_AGE':500,
-    }
-}
+	"default": dj_database_url.config(default=("postgres://carservicedb_user:hMFpYZblPQVXCnkWU7lDzdD1gdSVz0nX@dpg-ck74ico8elhc7380ns4g-a.oregon-postgres.render.com/carservicedb"))}
 
 
 # Password validation

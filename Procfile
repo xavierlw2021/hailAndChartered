@@ -1,0 +1,1 @@
+web: gunicorn windGrass.wsgi --preload
