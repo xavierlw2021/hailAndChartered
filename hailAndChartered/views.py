@@ -113,7 +113,7 @@ def callback(request):
                             action=PostbackAction(
                                 label=f'{nowT + datetime.timedelta(days=d)}',
                                 display_text=f'{nowT + datetime.timedelta(days=d)}',
-                                data=f'action=ch2Date&chId={chId}&chdt={nowT + datetime.timedelta(days=j)}'))) for d in range(7)]
+                                data=f'action=ch2Date&chId={chId}&chdt={nowT + datetime.timedelta(days=d)}'))) for d in range(7)]
                     message.append(TextSendMessage(
                         text='請問您哪一天要包車呢?',
                         quick_reply=QuickReply(items=date_list)
