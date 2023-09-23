@@ -91,12 +91,26 @@ def callback(request):
             elif isinstance(event, PostbackEvent):
                 data = dict(parse_qsl(event.postback.data)) #先將postback中的資料轉成字典
                 p_action = data.get('action') #get action裡面的值
-                if p_action == "heil":
+                if p_action == "heil":  #叫車選單
                     message.append(HeilList())
-                elif p_action == "chartered":
-                    message.append(CharteredList())
-                elif p_action == "charteredCheck":
-                    message.append(CharteredOption())
+                #包車選項流程    
+                elif p_action == "chartered":  #選單
+                    message.append(CharteredList())                    
+                elif p_action == "charteredCheck": 
+                    chId = data.get('chId')
+                    nowT = datetime.datetime.now()
+                    date_list = [   #7天內的日期按鈕串列
+                        (QuickReplyButton(
+                            action=PostbackAction(
+                                label=f'{str(nowT + datetime.timedelta(days=j))}',
+                                display_text=f'{str(nowT + datetime.timedelta(days=j))}',
+                                data=f'action=ch2Date&chId={chId}&chdt={str(nowT + datetime.timedelta(days=j))}'))) for j in range(7)]
+                    message.append(TextSendMessage(
+                        text='請問您哪一天要包車呢?',
+                        quick_reply=QuickReply(items=date_list)
+                    ))
+                elif p_action == "ch2Date":
+                    message.append(TextSendMessage(text="ch2Date成功"))
                 elif p_action == "checkout":
                     message.append(carServiceCheck())
                 elif p_action == 'carOpyionPay':  #結帳 
