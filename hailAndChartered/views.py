@@ -61,3 +61,10 @@ def callback(request):
                 #訊息判斷區
                 if '@關於我們' in msgtext:
                     message.append(TextSendMessage(text="本聊天室為包車叫車測試"))
+    
+            if message:
+                line_bot_api.reply_message(event.reply_token, message)
+
+        return HttpResponse()
+    else:
+        return HttpResponseBadRequest()
