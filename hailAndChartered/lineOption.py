@@ -75,45 +75,86 @@ def CharteredList():
                 "type": "image",
                 "size": "full",
                 "aspectRatio": "20:13",
-                "aspectMode": "fit",
+                "aspectMode": "cover",                
                 "url": cT.carImgUrl
             },
             "body": {
                 "type": "box",
-                "layout": "vertical",
-                "spacing": "xs",
+                "layout": "vertical",       
                 "contents": [
                     {
                         "type": "text",
                         "text": cT.carType,
                         "wrap": True,
                         "weight": "bold",
-                        "size": "l",
-                    },                    
-                    {
-                        "type": "text",
-                        "text": "半天(5小時)$" + str(cT.chtdStartPrice),
-                        "wrap": True,
-                        "weight": "bold",
                         "size": "xl",
-                    },
+                    }, 
                     {
-                        "type": "text",
-                        "text": "全天(10小時)$" + str(cT.chtdAlldayPrice),
-                        "wrap": True,
-                        "weight": "bold",
-                        "size": "xl",
-                    },
-                    {
-                        "type": "text",
-                        "text": "逾時$" + str(cT.timeOutPrice) + "/小時",
-                        "wrap": True,
-                        "weight": "bold",
-                        "size": "md",
-                    },                        
-                    {
-                        "type": "separator",
-                        "margin": "sm"
+                        "type": "box",
+                        "layout": "vertical",
+                        "margin": "lg",
+                        "spacing": "sm",
+                        "contents": [
+                            {
+                                "type": "box",
+                                "layout": "baseline",
+                                "spacing": "sm",
+                                "contents": [ 
+                                    {
+                                        "type": "text",
+                                        "text": "半天(5小時)",
+                                        "color": "#1A3852"
+                                        "wrap": True,
+                                        "weight": "bold",
+                                        "size": "md",
+                                        "flex": 1,
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": "$" + str(cT.chtdStartPrice),
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "baseline",
+                                "spacing": "sm",
+                                "contents": [                                               
+                                    {
+                                        "type": "text",
+                                        "text": "全天(10小時)",
+                                        "color": "#1A3852"
+                                        "wrap": True,
+                                        "weight": "bold",
+                                        "size": "md",
+                                        "flex": 1,
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": "$" + str(cT.chtdAlldayPrice),
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "baseline",
+                                "contents": [                                               
+                                    {
+                                        "type": "text",
+                                        "text": "逾時",
+                                        "color": "#1A3852"
+                                        "weight": "bold",
+                                        "size": "sm",
+                                        "flex": 1,
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": "$" + str(cT.timeOutPrice)+ "/小時",
+                                        "size": "sm",
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             },
@@ -122,17 +163,24 @@ def CharteredList():
                 "layout": "vertical",
                 "spacing": "md",
                 "contents": [
-                {
-                    "type": "button",
-                    "style": "primary",
-                    "height": "sm",
-                    "action": {
-                    "type": "postback",
-                    "label": "選擇",
-                    "data": f"action=charteredCheck&chId={cT.id}"},
-                    "color": "#146C94",
-                }
-                ],
+                    {
+                        "type": "button",
+                        "style": "primary",
+                        "height": "sm",
+                        "action": {
+                            "type": "postback",
+                            "label": "選擇",
+                            "data": f"action=charteredCheck&chId={cT.id}"
+                        },
+                        "color": "#000000"
+                    },
+                    {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [],
+                        "margin": "sm"
+                    }
+                ],                
             }
         }
         bubbles.append(bubble)
@@ -141,7 +189,8 @@ def CharteredList():
         alt_text="包車選擇",
         contents={
             "type": "carousel",
-            "contents": bubbles}
+            "contents": bubbles
+        }
     )
     return flex_message
 
