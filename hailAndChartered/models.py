@@ -18,6 +18,16 @@ class charteredOption(models.Model):
     timeOutPrice = models.PositiveIntegerField(default=400) #超時價/小時
     onOff = models.BooleanField(default=True) #開關
 
+# 包車預約紀錄
+class chartered_order(models.Model):
+    pub_datetime = models.DateTimeField(default=timezone.now)   #登錄時間
+    appointmentDate = models.DateTimeField()    #預約日期
+    carType = models.CharField(max_length=50)   #預約車種
+    passengerAmount = models.PositiveIntegerField(default=2)    #乘客數
+    questNote = models.CharField(max_length=100)    #客戶特殊需求
+    class Meta:
+        ordering = ('-appointmentDate',)
+
 # 客戶紀錄
 class questProfile(models.Model):
     quest_phone = models.CharField(max_length=10)
@@ -31,7 +41,7 @@ class questProfile(models.Model):
     class Meta:
         ordering = ('-signUp_time',)    
     def __str__(self):
-        return f'{self.quest_phone}'        
+        return f'{self.quest_phone}'
 
 # 消費紀錄
 class car_order(models.Model):     

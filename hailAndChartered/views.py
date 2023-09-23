@@ -88,7 +88,7 @@ def callback(request):
                         )
                     ))
                 elif "您的人數:" in msgtext:
-                    message.append(TextSendMessage(text='msgtext'))
+                    message.append(TextSendMessage(text=f'{msgtext}'))
 
             elif isinstance(event, PostbackEvent):
                 data = dict(parse_qsl(event.postback.data)) #先將postback中的資料轉成字典
