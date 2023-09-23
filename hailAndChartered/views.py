@@ -87,6 +87,8 @@ def callback(request):
                             ]
                         )
                     ))
+                elif "您的人數:" in msgtext:
+                    message.append(TextSendMessage(text='msgtext'))
 
             elif isinstance(event, PostbackEvent):
                 data = dict(parse_qsl(event.postback.data)) #先將postback中的資料轉成字典
@@ -162,9 +164,20 @@ def callback(request):
                     #     )
                     # ))
                 elif p_action == "prsNum":
-                    chId = data.get('chId')
-                    chTm = data.get('chDtm')
-                    message.append(TextSendMessage(text=f"出發時間{chTm}"))
+                    # chId = data.get('chId')
+                    # chTm = data.get('chDtm')
+                    chStr = data.get('chId') +':'+data.get('chDtm')
+                    message.append(TextSendMessage(text="請溫有多少乘客呢?",
+                                                   quick_reply=QuickReply(
+                                                       items=[
+                                                           QuickReplyButton(
+                                                               action=URIAction(
+                                                                   label="輸入人數",
+                                                                   uri='line://oaMessage/{bid}/?{message}'.format(bid='@523goiva',message=quote(f"{chStr}/您的人數:")),
+                                                               )
+                                                           )
+                                                       ]
+                                                   )))
                 
                 elif p_action == "checkout":
                     message.append(carServiceCheck())
