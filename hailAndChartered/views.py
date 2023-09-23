@@ -108,7 +108,7 @@ def callback(request):
                                     action=DatetimePickerAction(
                                         label="選擇時間",
                                         data = f'action=ch2Date&chId={chId}',
-                                        mode = 'datatime',
+                                        mode = 'datetime',
                                         initial = nowT[:10]+'t'+nowT[11:16],
                                         max = after7Day[:10]+'t'+after7Day[11:16],
                                         min = nowT[:10]+'t'+nowT[11:16])
