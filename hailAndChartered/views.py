@@ -98,15 +98,15 @@ def callback(request):
                     message.append(CharteredList())                    
                 elif p_action == "charteredCheck": 
                     chId = data.get('chId')
-                    nowT = datetime.datetime.now()
+                    nowT = datetime.datetime.today().date()
                     date_list = []
                     for d in range(7):
-                        newDate = str(nowT + datetime.timedelta(days=d))
+                        newDate = nowT + datetime.timedelta(days=d)
                         date_list.append(
                             QuickReplyButton(
                                 action=PostbackAction(
-                                    label = newDate,
-                                    display_text = newDate,
+                                    label = f"{newDate}",
+                                    display_text = f"{newDate}",
                                     data=f'action=ch2Date&chId={chId}&chdt={newDate}')))                       
 
                     # date_list = [   #7天內的日期按鈕串列
