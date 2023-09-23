@@ -4,7 +4,7 @@ from django.utils import timezone
 # 叫車清單
 class hailOption(models.Model):
     agencyName = models.CharField(max_length=50)   #車行名
-    agencyNumber = models.CharField(max_length=10)  #車行電話
+    agencyNumber = models.CharField(max_length=10,blank=True, null=True)  #車行電話
     agencyUrl = models.URLField(blank=True, null=True)  #網址
     imgUrl = models.URLField(blank=True, null=True)  #圖片網址
     onOff = models.BooleanField(default=True) #開關
