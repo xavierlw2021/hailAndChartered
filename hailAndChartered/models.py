@@ -13,7 +13,9 @@ class hailOption(models.Model):
 class charteredOption(models.Model):
     carType = models.CharField(max_length=50)   #車種
     carImgUrl = models.URLField(blank=True, null=True)  #圖片網址  
-    chtdStartPrice = models.IntegerField(default=2000) #起跳價
+    chtdStartPrice = models.IntegerField(default=3000) #半天價
+    chtdAlldayPrice = models.IntegerField(default=4500) #全天價
+    timeOutPrice = models.IntegerField(default=400) #超時價/小時
     driverName = models.CharField(max_length=50)   #司機名
     driverPhone = models.CharField(max_length=10)  #司機電話
     onOff = models.BooleanField(default=True) #開關

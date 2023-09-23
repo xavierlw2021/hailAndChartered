@@ -7,7 +7,8 @@ class hailOptionAdmin(ImportExportModelAdmin):
     ordering = ('id',)
 
 class charteredOptionAdmin(ImportExportModelAdmin):
-    list_display = ('id','carType','carImgUrl','chtdStartPrice','driverName','driverPhone','onOff',)
+    list_display = ('id','carType','carImgUrl','chtdStartPrice','chtdAlldayPrice',\
+                    'timeOutPrice','driverName','driverPhone','onOff',)
     ordering = ('id',)
 
 class questProfileAdmin(ImportExportModelAdmin):
