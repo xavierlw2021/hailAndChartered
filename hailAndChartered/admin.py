@@ -3,11 +3,11 @@ from import_export.admin import ImportExportModelAdmin
 from .models import hailOption, charteredOption, questProfile, car_order
 
 class hailOptionAdmin(ImportExportModelAdmin):
-    list_display = ('id','agencyName','agencyNumber','onOff',)
+    list_display = ('id','agencyName','agencyNumber','agencyUrl','imgUrl','onOff',)
     ordering = ('id',)
 
 class charteredOptionAdmin(ImportExportModelAdmin):
-    list_display = ('id','carType','chtdStartPrice','driverName','driverPhone','onOff',)
+    list_display = ('id','carType','carImgUrl','chtdStartPrice','driverName','driverPhone','onOff',)
     ordering = ('id',)
 
 class questProfileAdmin(ImportExportModelAdmin):

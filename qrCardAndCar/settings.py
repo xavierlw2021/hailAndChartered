@@ -9,9 +9,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-LINE_CHANNEL_ACCESS_TOKEN = 'xHnaVuyXvKzJ0yi02gSPpjVJBEnWfMCRrmUsWpUhh16VnDYqkgaXKg0HwC1Ul/m4MyWdZTSW66OZb9L6Hw0rHd/StJ7Olu1ShFs5R3U/GIxQ7zXdrcjMIYQUPxYJ1ws4G2VX++lOFHU6msuKdZOqPwdB04t89/1O/w1cDnyilFU='
+LINE_CHANNEL_ACCESS_TOKEN = 'xHnaVuyXvKzJ0yi02gSPpjVJBEnWfMCRrmUsWpUhh16VnDYqkgaXKg0HwC1Ul/m4MyWdZTSW66OZb9L6Hw0rHd/StJ7Olu1ShFs5R3U/GIxQ7zXdrcjMIYQUPxYJ1ws4G2VX++lOFHU6msuKdZOqPwdB04t89/1O/w1cDnyilFU='   #((需要改))
 
-LINE_CHANNEL_SECRET = '7ab67c9f982fb7fd0011e63c702a71c2'
+LINE_CHANNEL_SECRET = '7ab67c9f982fb7fd0011e63c702a71c2'   #((需要改))
 
 SECRET_KEY = "django-insecure-9k9(y_$jl+x$h3a4jox3-28d15fq93dxmr=6)929yiktxsfoa%"
 
@@ -81,7 +81,7 @@ WSGI_APPLICATION = "qrCardAndCar.wsgi.application"
 # }
 
 DATABASES = {
-	"default": dj_database_url.config(default=("postgres://carservicedb_user:hMFpYZblPQVXCnkWU7lDzdD1gdSVz0nX@dpg-ck74ico8elhc7380ns4g-a.oregon-postgres.render.com/carservicedb"))}
+	"default": dj_database_url.config(default=("postgres://carservicedb_user:hMFpYZblPQVXCnkWU7lDzdD1gdSVz0nX@dpg-ck74ico8elhc7380ns4g-a.oregon-postgres.render.com/carservicedb"))}   #((需要改))
 
 
 # Password validation

@@ -5,11 +5,14 @@ from django.utils import timezone
 class hailOption(models.Model):
     agencyName = models.CharField(max_length=50)   #車行名
     agencyNumber = models.CharField(max_length=10)  #車行電話
+    agencyUrl = models.URLField(blank=True, null=True)  #網址
+    imgUrl = models.URLField(blank=True, null=True)  #圖片網址
     onOff = models.BooleanField(default=True) #開關
 
 # 包車清單
 class charteredOption(models.Model):
-    carType = models.CharField(max_length=50)   #車種    
+    carType = models.CharField(max_length=50)   #車種
+    carImgUrl = models.URLField(blank=True, null=True)  #圖片網址  
     chtdStartPrice = models.IntegerField(default=2000) #起跳價
     driverName = models.CharField(max_length=50)   #司機名
     driverPhone = models.CharField(max_length=10)  #司機電話
