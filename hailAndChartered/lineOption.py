@@ -13,20 +13,19 @@ def HeilList():
                 "type": "image",
                 "size": "full",
                 "aspectRatio": "20:13",
-                "aspectMode": "fit",
+                "aspectMode": "cover",
                 "url": agcs.imgUrl
             },
             "body": {
                 "type": "box",
-                "layout": "vertical",
-                "spacing": "xs",
+                "layout": "vertical",                
                 "contents": [
                     {
                         "type": "text",
                         "text": agcs.agencyName,
                         "wrap": True,
                         "weight": "bold",
-                        "size": "l",
+                        "size": "xl",
                         "color": "#3C486B"
                     },                                          
                     {
@@ -42,7 +41,7 @@ def HeilList():
                 "contents": [
                 {
                     "type": "button",
-                    "style": "primary",
+                    "style": "link",
                     "height": "sm",
                     "action": {
                         "type": "uri",
@@ -50,6 +49,12 @@ def HeilList():
                         "uri": str(agcs.agencyUrl)
                     },
                     "color": "#F9D949"
+                },
+                {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [],
+                    "margin": "sm"
                 }
                 ],
             }
@@ -172,7 +177,7 @@ def CharteredList():
                             "label": "選擇",
                             "data": f"action=charteredCheck&chId={cT.id}"
                         },
-                        "color": "#000000"
+                        "color": "#4F709C"
                     },
                     {
                         "type": "box",
