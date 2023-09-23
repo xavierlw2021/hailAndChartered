@@ -99,12 +99,22 @@ def callback(request):
                 elif p_action == "charteredCheck": 
                     chId = data.get('chId')
                     nowT = datetime.datetime.now()
-                    date_list = [   #7天內的日期按鈕串列
-                        (QuickReplyButton(
-                            action=PostbackAction(
-                                label=f'{str(nowT + datetime.timedelta(days=j))}',
-                                display_text=f'{str(nowT + datetime.timedelta(days=j))}',
-                                data=f'action=ch2Date&chId={chId}&chdt={str(nowT + datetime.timedelta(days=j))}'))) for j in range(7)]
+                    date_list = []
+                    for d in range(7):
+                        newDate = str(nowT + datetime.timedelta(days=d))
+                        date_list.append(
+                            QuickReplyButton(
+                                action=PostbackAction(
+                                    label = newDate,
+                                    display_text = newDate,
+                                    data=f'action=ch2Date&chId={chId}&chdt={newDate}')))                       
+
+                    # date_list = [   #7天內的日期按鈕串列
+                    #     (QuickReplyButton(
+                    #         action=PostbackAction(
+                    #             label=f'{str(nowT + datetime.timedelta(days=j))}',
+                    #             display_text=f'{str(nowT + datetime.timedelta(days=j))}',
+                    #             data=f'action=ch2Date&chId={chId}&chdt={str(nowT + datetime.timedelta(days=j))}'))) for j in range(7)]
                     message.append(TextSendMessage(
                         text='請問您哪一天要包車呢?',
                         quick_reply=QuickReply(items=date_list)

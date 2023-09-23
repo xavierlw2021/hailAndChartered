@@ -4,7 +4,6 @@ from urllib.parse import quote
 
 def HeilList():
     agencys = models.hailOption.objects.all()
-    print(f"hailOption{len(agencys)}")
     bubbles = []
     for agcs in agencys:
         bubble = {
@@ -44,7 +43,7 @@ def HeilList():
                 "contents": [
                 {
                     "type": "button",
-                    "style": "link",
+                    "style": "primary",
                     "height": "sm",
                     "action": {
                         "type": "uri",
