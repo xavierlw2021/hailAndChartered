@@ -202,14 +202,11 @@ def CharteredList():    #包車選單
     return flex_message
 
 def carServiceCheck(event): #包車預約確認
-    dataString = dict(parse_qsl(event.postback.data)).get('dscp')
-    data_list = dataString.split('/')
-    carId = data_list[0]
-    cartype = models.charteredOption.objects.get(id=carId)
-    appointmentDate = data_list[1]
-    passengerAmount = data_list[2]
-    spnd = dict(parse_qsl(event.postback.data)).get('spnd')
-    # spndString = f"{spnd[:5]}..." if spnd != 0 else "無"    
+    data = dict(parse_qsl(event.postback.data))
+    carId = data.get('cId')
+    cartype = models.charteredOption.objects.get(id=int(carId))    
+    passengerAmount = data.get('Num')
+    appointmentDate = data.get('chDt').replace('T',' ') 
     message = FlexSendMessage(
         alt_text="包車預約單",
         contents={
@@ -288,7 +285,7 @@ def carServiceCheck(event): #包車預約確認
                                     },
                                     {
                                         "type": "text",
-                                        "text": str(passengerAmount)+" 人",
+                                        "text": passengerAmount+" 人",
                                         "wrap": True,
                                         "color": "#000000",
                                         "size": "lg",
@@ -373,7 +370,7 @@ def carServiceCheck(event): #包車預約確認
                         "action": {
                             "type": "postback",
                             "label": "確認預約",
-                            "data": f"action=chtdBooking&dscp={dataString}&spnd={spnd}"
+                            "data": f"action=chtdBooking&cId={data.get('cId')}&Num={data.get('Num')}&chDt={data.get('chDt')}"
                         },
                         "color": "#4F709C"
                     }

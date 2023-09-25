@@ -221,8 +221,36 @@ def callback(request):
                 
                 elif event.postback.params.get("datetime"):   #包車step3
                     print(event.postback)
-                    # cId = event.postback.data
-                    # chStr = event.postback.data + "/" + event.postback.params.get("datetime")
+                    cId = event.postback.data.split('/')[0]
+                    Num = event.postback.data.split('/')[1]
+                    chDt = event.postback.params.get("datetime")
+                    message.append(TextSendMessage(text="生成預約單",
+                                                   quick_reply=QuickReply(
+                                                       items=[
+                                                            QuickReplyButton(
+                                                                action=PostbackAction(
+                                                                    label='確定送出',
+                                                                    display_text='確定送出',
+                                                                    data=f'action=checkout&cId={cId}&Num={Num}&chDt={chDt}'))
+                                                        #     QuickReplyButton(
+                                                        #         action=URIAction(
+                                                        #             label="填寫需求",
+                                                        #             uri='line://oaMessage/{bid}/?{message}'.format(bid='@523goiva',message=quote(f"{n_msg}/特殊需求描述:")),
+                                                        #        )
+                                                        #    )
+                                                       ]
+                                                   )))
+                # elif "特殊需求描述:" in msgtext:  #包車step6
+                #     n_msg = msgtext.replace('/特殊需求描述:','&spnd=')
+                #     message.append(TextSendMessage(text="送出?",
+                #                                    quick_reply=QuickReply(
+                #                                        items=[
+                #                                             QuickReplyButton(
+                #                                                 action=PostbackAction(
+                #                                                     label='送出',
+                #                                                     display_text='送出',
+                #                                                     data=f'action=checkout&dscp={n_msg}'))
+                #                                        ])))
                     # print(chStr)
                     # message.append(TextSendMessage(text="請問有多少乘客呢?",
                     #                                quick_reply=QuickReply(
@@ -236,28 +264,27 @@ def callback(request):
                     #                                    ]
                     #                                )))
 
-                elif p_action == "prsNum":  #包車step4
-                    chStr = data.get('chId') +':'+data.get('chDtm')
-                    message.append(TextSendMessage(text="請問有多少乘客呢?",
-                                                   quick_reply=QuickReply(
-                                                       items=[
-                                                           QuickReplyButton(
-                                                               action=URIAction(
-                                                                   label="輸入人數",
-                                                                   uri='line://oaMessage/{bid}/?{message}'.format(bid='@523goiva',message=quote(f"{chStr}/您的人數:")),
-                                                               )
-                                                           )
-                                                       ]
-                                                   )))
+                # elif p_action == "prsNum":  #包車step4
+                #     chStr = data.get('chId') +':'+data.get('chDtm')
+                #     message.append(TextSendMessage(text="請問有多少乘客呢?",
+                #                                    quick_reply=QuickReply(
+                #                                        items=[
+                #                                            QuickReplyButton(
+                #                                                action=URIAction(
+                #                                                    label="輸入人數",
+                #                                                    uri='line://oaMessage/{bid}/?{message}'.format(bid='@523goiva',message=quote(f"{chStr}/您的人數:")),
+                #                                                )
+                #                                            )
+                #                                        ]
+                #                                    )))
                 
-                elif p_action == "checkout":                    
+                elif p_action == "checkout":  #包車step4                   
                     message.append(carServiceCheck(event))
-                elif p_action == "chtdBooking":
-                    dscp = data.get('dscp')
-                    spnd = data.get('spnd')
-                    questNote = spnd if spnd!="0" else ""
-                    data_list = dscp.split('/')
-                    message.append(TextSendMessage(text=f"appointmentDate={data_list[1]}, carType={data_list[0]},passengerAmount={data_list[2]},questNote={questNote}"))
+                elif p_action == "chtdBooking":  #包車寫入
+                    # carId = data.get('cId')   
+                    # passengerAmount = data.get('Num')
+                    # appointmentDate = data.get('chDt')
+                    message.append(TextSendMessage(text=f"appointmentDate={data.get('chDt')}, carType={data.get('cId')},passengerAmount={data.get('Num')}"))
                     # order_post = models.car_order.objects.create(appointmentDate = data_list[1], carType = data_list[0],\
                     #                                             passengerAmount = data_list[2], questNote = questNote)
                 # elif p_action == 'carOpyionPay':  #結帳 
