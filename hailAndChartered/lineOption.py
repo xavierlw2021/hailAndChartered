@@ -369,7 +369,7 @@ def carServiceCheck(cId,Num,chDt): #包車預約確認
                         "action": {
                             "type": "postback",
                             "label": "確認預約",
-                            "data": f"action=chtdBooking&cId={cId}&Num={Num}&chDt={chDt}"
+                            "data": f"action=chtdBooking&cId={cId}&Num={Num}&chDt={appointmentDate}"
                         },
                         "color": "#4F709C"
                     }

@@ -143,9 +143,7 @@ def callback(request):
                     message.append(carServiceCheck(event))
                 elif p_action == "chtdBooking":  #包車寫入
                     cartype = models.charteredOption.objects.get(id=int(data.get('cId'))).carType
-                    print(cartype, type(cartype))
                     passengerAmount = int(data.get('Num'))
-                    print(passengerAmount, type(passengerAmount))
                     appointmentDate = datetime.datetime.strptime(data.get('chDt'),'%Y-%m-%d %H:%M')  
                     print(appointmentDate, type(appointmentDate))
                     a = len(models.hailOption.objects.all)
