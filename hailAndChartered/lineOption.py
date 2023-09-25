@@ -375,63 +375,10 @@ def carServiceCheck(event): #包車預約確認
                             "label": "確認預約",
                             "data": f"action=chtdBooking&dscp={dataString}&spnd={spnd}"
                         },
-                        "color": "#000000"
+                        "color": "#4F709C"
                     }
                     ],
                     "margin": "lg"
                 }
                 }]})
     return message
-    #                         {
-    #                             "type": "box",
-    #                             "layout": "horizontal",
-    #                             "contents": [
-    #                             {
-    #                                 "type": "text",
-    #                                 "text": "特殊需求",
-    #                                 "size": "sm",
-    #                                 "color": "#000000",
-    #                                 "flex": 0
-    #                             },
-    #                             {
-    #                                 "type": "text",
-    #                                 "text": spndString,
-    #                                 "size": "sm",
-    #                                 "color": "#111111",
-    #                                 "align": "end"
-    #                             }
-    #                             ]
-    #                         },
-    #                         {
-    #                             "type": "box",
-    #                             "layout": "horizontal",
-    #                             "contents": [
-    #                             {
-    #                                 "type": "button",
-    #                                 "action": {
-    #                                 "type": "postback",
-    #                                 "label": "確認預約",
-    #                                 "data": f"action=chtdBooking&dscp={dataString}&spnd={spnd}"
-    #                                 },
-    #                                 "style": "primary",
-    #                                 "flex": 2,
-    #                                 "color": "#2192FF"
-    #                             }
-    #                             ],
-    #                             "spacing": "md"
-    #                         },
-    #                         {
-    #                             "type": "separator",
-    #                             "margin": "xxl"
-    #                         }]
-    #                 }]
-    #             },
-    #             "styles": {
-    #                 "footer": {
-    #                 "separator": True
-    #                 }
-    #             }
-    #         }
-    #     }
-    # ) 
-    # return message

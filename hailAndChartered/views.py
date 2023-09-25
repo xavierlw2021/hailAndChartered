@@ -122,7 +122,7 @@ def callback(request):
             elif isinstance(event, PostbackEvent):
                 data = dict(parse_qsl(event.postback.data)) #先將postback中的資料轉成字典
                 p_action = data.get('action') #get action裡面的值
-                if p_action == "heil":  #叫車選單
+                if event.postback.params.get('action') == "heil":  #叫車選單
                     message.append(HeilList())
 
                 #包車選項流程    
