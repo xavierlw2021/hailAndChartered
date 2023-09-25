@@ -220,11 +220,11 @@ def callback(request):
                     # ))
                 
                 elif event.postback.params.get("datetime"):   #包車step3
-                    print(event.postback)
-                    print(event.postback.params.get("datetime"))
+                    # print(event.postback)
+                    print(type(event.postback.params.get("datetime")))
                     cId = event.postback.data.split('/')[0]
                     Num = event.postback.data.split('/')[1]
-                    chDt = event.postback.params[datetime]
+                    chDt = event.postback.params.get("datetime")
                     message.append(TextSendMessage(text="生成預約單",
                                                    quick_reply=QuickReply(
                                                        items=[
