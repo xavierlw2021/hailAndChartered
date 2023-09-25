@@ -209,22 +209,12 @@ def carServiceCheck(event): #包車預約確認
     appointmentDate = data_list[1]
     passengerAmount = data_list[2]
     spnd = dict(parse_qsl(event.postback.data)).get('spnd')
-    # spndString = f"{spnd[:5]}..." if spnd != 0 else "無"
-    print(cartype.carImgUrl,type(cartype.carImgUrl))
-    print(cartype.carType,type(cartype.carType))
-    print(appointmentDate,type(appointmentDate))
-    print(passengerAmount,type(passengerAmount))
-    print(cartype.chtdStartPrice,type(cartype.chtdStartPrice))
-    print(cartype.chtdAlldayPrice,type(cartype.chtdAlldayPrice))
-    print(cartype.timeOutPrice,type(cartype.timeOutPrice))
-    print(dataString,type(dataString))
-    print(spnd,type(spnd))
-    
+    spndString = f"{spnd[:5]}..." if spnd != 0 else "無"
     message = FlexSendMessage(
         alt_text="包車預約單",
         contents={
             "type": "carousel",
-            "contents": [{
+            "contents": {
                 "type": "bubble",
                 "hero": {
                     "type": "image",
@@ -383,15 +373,14 @@ def carServiceCheck(event): #包車預約確認
                         "action": {
                         "type": "uri",
                         "label": "確認預約",
-                        "uri": f"action=chtdBooking&dscp={dataString}&spnd={spnd}"
+                        "uri": "https://linecorp.com"
                         },
                         "color": "#000000"
                     }
                     ],
                     "margin": "lg"
                 }
-                }]})
-    return message
+                }})
     #                         {
     #                             "type": "box",
     #                             "layout": "horizontal",
@@ -444,4 +433,4 @@ def carServiceCheck(event): #包車預約確認
     #         }
     #     }
     # ) 
-    # return message
+    return message
