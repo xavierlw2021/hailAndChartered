@@ -87,37 +87,57 @@ def callback(request):
                             ]
                         )
                     ))
-                elif "您的人數:" in msgtext:  #包車step5
+                elif "輸入人數:" in msgtext:  #包車step2
                     #字串整理
-                    f_msg = msgtext.split('/')[0].split(":")
-                    n_msg = f_msg[0]+"/"+f_msg[1]+":"+f_msg[2]+"/"+msgtext[-1]
-                    message.append(TextSendMessage(text="有什麼特殊需求嗎?",
-                                                   quick_reply=QuickReply(
-                                                       items=[
-                                                            QuickReplyButton(
-                                                                action=PostbackAction(
-                                                                    label='沒有特殊需求，送出',
-                                                                    display_text='無需求',
-                                                                    data=f'action=checkout&dscp={n_msg}&spnd=0')), #直接確認送出
-                                                            QuickReplyButton(
-                                                                action=URIAction(
-                                                                    label="填寫需求",
-                                                                    uri='line://oaMessage/{bid}/?{message}'.format(bid='@523goiva',message=quote(f"{n_msg}/特殊需求描述:")),
-                                                               )
-                                                           )
-                                                       ]
-                                                   )))
-                elif "特殊需求描述:" in msgtext:  #包車step6
-                    n_msg = msgtext.replace('/特殊需求描述:','&spnd=')
-                    message.append(TextSendMessage(text="送出?",
-                                                   quick_reply=QuickReply(
-                                                       items=[
-                                                            QuickReplyButton(
-                                                                action=PostbackAction(
-                                                                    label='送出',
-                                                                    display_text='送出',
-                                                                    data=f'action=checkout&dscp={n_msg}'))
-                                                       ])))
+                    # f_msg = msgtext.split('/')[0].split(":")
+                    # n_msg = f_msg[0]+"/"+f_msg[1]+":"+f_msg[2]+"/"+msgtext[-1]
+                    n_msg = msgtext.replace('輸入人數:','')
+                    nowT = str(datetime.datetime.now())
+                    after7Day = str(datetime.datetime.now() + datetime.timedelta(days=7))
+                    message.append(TextSendMessage(
+                        text='請問您什麼時間要包車呢?',
+                        quick_reply=QuickReply(
+                            items=[
+                                QuickReplyButton(
+                                    action=DatetimePickerAction(
+                                        label="選擇時間",
+                                        data = n_msg,
+                                        mode = 'datetime',
+                                        initial = nowT[:10]+'t'+nowT[11:16],
+                                        max = after7Day[:10]+'t'+after7Day[11:16],
+                                        min = nowT[:10]+'t'+nowT[11:16])
+                                )
+                            ]
+                        )
+                    ))
+
+                #     message.append(TextSendMessage(text="有什麼特殊需求嗎?",
+                #                                    quick_reply=QuickReply(
+                #                                        items=[
+                #                                             QuickReplyButton(
+                #                                                 action=PostbackAction(
+                #                                                     label='沒有特殊需求，送出',
+                #                                                     display_text='無需求',
+                #                                                     data=f'action=checkout&dscp={n_msg}&spnd=0')), #直接確認送出
+                #                                             QuickReplyButton(
+                #                                                 action=URIAction(
+                #                                                     label="填寫需求",
+                #                                                     uri='line://oaMessage/{bid}/?{message}'.format(bid='@523goiva',message=quote(f"{n_msg}/特殊需求描述:")),
+                #                                                )
+                #                                            )
+                #                                        ]
+                #                                    )))
+                # elif "特殊需求描述:" in msgtext:  #包車step6
+                #     n_msg = msgtext.replace('/特殊需求描述:','&spnd=')
+                #     message.append(TextSendMessage(text="送出?",
+                #                                    quick_reply=QuickReply(
+                #                                        items=[
+                #                                             QuickReplyButton(
+                #                                                 action=PostbackAction(
+                #                                                     label='送出',
+                #                                                     display_text='送出',
+                #                                                     data=f'action=checkout&dscp={n_msg}'))
+                #                                        ])))
 
             elif isinstance(event, PostbackEvent):
                 data = dict(parse_qsl(event.postback.data)) #先將postback中的資料轉成字典
@@ -129,8 +149,19 @@ def callback(request):
                 elif p_action == "chartered":  #選單
                     message.append(CharteredList()) 
 
-                elif p_action == "charteredCheck":  #包車step1
+                elif p_action == "carCheck":  #包車step1
                     chId = data.get('chId')
+                    message.append(TextSendMessage(text="請問有多少乘客呢?",
+                                                   quick_reply=QuickReply(
+                                                       items=[
+                                                           QuickReplyButton(
+                                                               action=URIAction(
+                                                                   label="輸入人數",
+                                                                   uri='line://oaMessage/{bid}/?{message}'.format(bid='@523goiva',message=quote(f"{chId}/輸入人數:")),
+                                                               )
+                                                           )
+                                                       ]
+                                                   )))
                 #     nowD = datetime.datetime.now().date()
                 #     date_list = [   #7天內的日期按鈕串列
                 #         (QuickReplyButton(
@@ -169,27 +200,41 @@ def callback(request):
                 #         quick_reply=QuickReply(items=min_list)
                 #     ))                    
 
-                    nowT = str(datetime.datetime.now())
-                    after7Day = str(datetime.datetime.now() + datetime.timedelta(days=7))
-                    message.append(TextSendMessage(
-                        text='請問您什麼時間要包車呢?',
-                        quick_reply=QuickReply(
-                            items=[
-                                QuickReplyButton(
-                                    action=DatetimePickerAction(
-                                        label="選擇時間",
-                                        data = f'chId={chId}',
-                                        mode = 'datetime',
-                                        initial = nowT[:10]+'t'+nowT[11:16],
-                                        max = after7Day[:10]+'t'+after7Day[11:16],
-                                        min = nowT[:10]+'t'+nowT[11:16])
-                                )
-                            ]
-                        )
-                    ))
+                    # nowT = str(datetime.datetime.now())
+                    # after7Day = str(datetime.datetime.now() + datetime.timedelta(days=7))
+                    # message.append(TextSendMessage(
+                    #     text='請問您什麼時間要包車呢?',
+                    #     quick_reply=QuickReply(
+                    #         items=[
+                    #             QuickReplyButton(
+                    #                 action=DatetimePickerAction(
+                    #                     label="選擇時間",
+                    #                     data = f'{chId}',
+                    #                     mode = 'datetime',
+                    #                     initial = nowT[:10]+'t'+nowT[11:16],
+                    #                     max = after7Day[:10]+'t'+after7Day[11:16],
+                    #                     min = nowT[:10]+'t'+nowT[11:16])
+                    #             )
+                    #         ]
+                    #     )
+                    # ))
                 
-                elif event.postback.params.get("datetime"):
+                elif event.postback.params.get("datetime"):   #包車step3
                     print(event.postback)
+                    # cId = event.postback.data
+                    # chStr = event.postback.data + "/" + event.postback.params.get("datetime")
+                    # print(chStr)
+                    # message.append(TextSendMessage(text="請問有多少乘客呢?",
+                    #                                quick_reply=QuickReply(
+                    #                                    items=[
+                    #                                        QuickReplyButton(
+                    #                                            action=URIAction(
+                    #                                                label="輸入人數",
+                    #                                                uri='line://oaMessage/{bid}/?{message}'.format(bid='@523goiva',message=quote(f"{chStr}/輸入人數:")),
+                    #                                            )
+                    #                                        )
+                    #                                    ]
+                    #                                )))
 
                 elif p_action == "prsNum":  #包車step4
                     chStr = data.get('chId') +':'+data.get('chDtm')

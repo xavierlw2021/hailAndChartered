@@ -177,7 +177,7 @@ def CharteredList():    #包車選單
                         "action": {
                             "type": "postback",
                             "label": "選擇",
-                            "data": f"action=charteredCheck&chId={cT.id}"
+                            "data": f"action=carCheck&chId={cT.id}"
                         },
                         "color": "#4F709C"
                     },
