@@ -122,7 +122,7 @@ def callback(request):
             elif isinstance(event, PostbackEvent):
                 data = dict(parse_qsl(event.postback.data)) #先將postback中的資料轉成字典
                 p_action = data.get('action') #get action裡面的值
-                if event.postback.data.get('action') == "heil":  #叫車選單
+                if p_action == "heil":  #叫車選單
                     message.append(HeilList())
 
                 #包車選項流程    
@@ -131,67 +131,66 @@ def callback(request):
 
                 elif p_action == "charteredCheck":  #包車step1
                     chId = data.get('chId')
-                    nowD = datetime.datetime.now().date()
-                    date_list = [   #7天內的日期按鈕串列
-                        (QuickReplyButton(
-                            action=PostbackAction(
-                                label=f'{nowD + datetime.timedelta(days=d)}',
-                                display_text=f'{nowD + datetime.timedelta(days=d)}',
-                                data=f'action=selcHour&chId={chId}&chDt={nowD + datetime.timedelta(days=d)}'))) for d in range(7)]
-                    message.append(TextSendMessage(
-                        text='請問您哪一天要包車呢?',
-                        quick_reply=QuickReply(items=date_list)
-                    ))                    
-                elif p_action == "selcHour":  #包車step2
-                    chId = data.get('chId')
-                    chDt = data.get('chDt')
-                    hour_list = [   #小時按鈕串列
-                        (QuickReplyButton(
-                            action=PostbackAction(
-                                label=f'{6+h}點',
-                                display_text=f'{6+h}點',
-                                data=f'action=selcMin&chId={chId}&chDth={chDt} {6+h:02d}'))) for h in range(12)]
-                    message.append(TextSendMessage(
-                        text='幾點?',
-                        quick_reply=QuickReply(items=hour_list)
-                    ))                
-                elif p_action == "selcMin":  #包車step3
-                    chId = data.get('chId')
-                    chDth = data.get('chDth')
-                    min_list = [   #分鐘按鈕串列
-                        (QuickReplyButton(
-                            action=PostbackAction(
-                                label=f'{m:02d}分',
-                                display_text=f'{m:02d}分',
-                                data=f'action=prsNum&chId={chId}&chDtm={chDth}:{m:02d}'))) for m in [0,30]]
-                    message.append(TextSendMessage(
-                        text='幾分?',
-                        quick_reply=QuickReply(items=min_list)
-                    ))                
-                    # message.append(TextSendMessage(text="請問您什麼時間要出發呢?",
-                    #                                quick_reply=QuickReply(
-                    #                                    items=[
-                                                           
-                    #                                    ]))
+                #     nowD = datetime.datetime.now().date()
+                #     date_list = [   #7天內的日期按鈕串列
+                #         (QuickReplyButton(
+                #             action=PostbackAction(
+                #                 label=f'{nowD + datetime.timedelta(days=d)}',
+                #                 display_text=f'{nowD + datetime.timedelta(days=d)}',
+                #                 data=f'action=selcHour&chId={chId}&chDt={nowD + datetime.timedelta(days=d)}'))) for d in range(7)]
+                #     message.append(TextSendMessage(
+                #         text='請問您哪一天要包車呢?',
+                #         quick_reply=QuickReply(items=date_list)
+                #     ))                    
+                # elif p_action == "selcHour":  #包車step2
+                #     chId = data.get('chId')
+                #     chDt = data.get('chDt')
+                #     hour_list = [   #小時按鈕串列
+                #         (QuickReplyButton(
+                #             action=PostbackAction(
+                #                 label=f'{6+h}點',
+                #                 display_text=f'{6+h}點',
+                #                 data=f'action=selcMin&chId={chId}&chDth={chDt} {6+h:02d}'))) for h in range(12)]
+                #     message.append(TextSendMessage(
+                #         text='幾點?',
+                #         quick_reply=QuickReply(items=hour_list)
+                #     ))                
+                # elif p_action == "selcMin":  #包車step3
+                #     chId = data.get('chId')
+                #     chDth = data.get('chDth')
+                #     min_list = [   #分鐘按鈕串列
+                #         (QuickReplyButton(
+                #             action=PostbackAction(
+                #                 label=f'{m:02d}分',
+                #                 display_text=f'{m:02d}分',
+                #                 data=f'action=prsNum&chId={chId}&chDtm={chDth}:{m:02d}'))) for m in [0,30]]
+                #     message.append(TextSendMessage(
+                #         text='幾分?',
+                #         quick_reply=QuickReply(items=min_list)
+                #     ))                    
 
-                    # nowT = str(datetime.datetime.now())
-                    # after7Day = str(datetime.datetime.now() + datetime.timedelta(days=7))
-                    # message.append(TextSendMessage(
-                    #     text='請問您哪一天要包車呢?',
-                    #     quick_reply=QuickReply(
-                    #         items=[
-                    #             QuickReplyButton(
-                    #                 action=DatetimePickerAction(
-                    #                     label="選擇時間",
-                    #                     data = f'action=ch2Date&chId={chId}',
-                    #                     mode = 'datetime',
-                    #                     initial = nowT[:10]+'t'+nowT[11:16],
-                    #                     max = after7Day[:10]+'t'+after7Day[11:16],
-                    #                     min = nowT[:10]+'t'+nowT[11:16])
-                    #             )
-                    #         ]
-                    #     )
-                    # ))
+                    nowT = str(datetime.datetime.now())
+                    after7Day = str(datetime.datetime.now() + datetime.timedelta(days=7))
+                    message.append(TextSendMessage(
+                        text='請問您什麼時間要包車呢?',
+                        quick_reply=QuickReply(
+                            items=[
+                                QuickReplyButton(
+                                    action=DatetimePickerAction(
+                                        label="選擇時間",
+                                        data = f'chId={chId}',
+                                        mode = 'datetime',
+                                        initial = nowT[:10]+'t'+nowT[11:16],
+                                        max = after7Day[:10]+'t'+after7Day[11:16],
+                                        min = nowT[:10]+'t'+nowT[11:16])
+                                )
+                            ]
+                        )
+                    ))
+                
+                elif event.postback.params.get("datetime"):
+                    print(event.postback)
+
                 elif p_action == "prsNum":  #包車step4
                     chStr = data.get('chId') +':'+data.get('chDtm')
                     message.append(TextSendMessage(text="請問有多少乘客呢?",
