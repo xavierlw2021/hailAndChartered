@@ -214,7 +214,7 @@ def carServiceCheck(event): #包車預約確認
         alt_text="包車預約單",
         contents={
             "type": "carousel",
-            "contents": {
+            "contents": [{
                 "type": "bubble",
                 "hero": {
                     "type": "image",
@@ -380,7 +380,7 @@ def carServiceCheck(event): #包車預約確認
                     ],
                     "margin": "lg"
                 }
-                }})
+                }]})
     return message
     #                         {
     #                             "type": "box",
