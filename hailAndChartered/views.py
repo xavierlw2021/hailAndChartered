@@ -116,7 +116,7 @@ def callback(request):
                                                                 action=PostbackAction(
                                                                     label='送出',
                                                                     display_text='送出',
-                                                                    data=f'action=checkout&dscp={n_msg}'))                                                            
+                                                                    data=f'action=checkout&dscp={n_msg}'))
                                                        ])))
 
             elif isinstance(event, PostbackEvent):
@@ -226,81 +226,81 @@ def callback(request):
     else:
         return HttpResponseBadRequest()
     
-def linePay_confirm(event):     #支付流程
-    data = dict(parse_qsl(event.postback.data))
-    order_id = data.get('order_id')
-    order = models.car_order.objects.get(id=order_id)
-    if order.is_pay == False:
-        order_uuid = uuid.uuid4().hex
-        total_cost = order.total_cost
+# def linePay_confirm(event):     #支付流程
+#     data = dict(parse_qsl(event.postback.data))
+#     order_id = data.get('order_id')
+#     order = models.car_order.objects.get(id=order_id)
+#     if order.is_pay == False:
+#         order_uuid = uuid.uuid4().hex
+#         total_cost = order.total_cost
 
-        line_pay = LinePay()
-        info = line_pay.pay(product_name='carTest',
-                            amount=total_cost,
-                            order_id=order_uuid,
-                            product_image_url=STORE_IMAGE_URL)  
-        pay_web_url = info['paymentUrl']['web'] 
-        transaction_id = info['transactionId']
-        order.transaction_id = transaction_id   #登錄官方回傳值
-        order.save()
-        msg = TemplateSendMessage(
-            alt_text='Thanks message',
-            template=ButtonsTemplate(
-                text='請點選下方金額進行LinePay支付',
-                actions=[
-                    URIAction(label=f'Pay NT${total_cost}', uri=pay_web_url)
-                ]
-            )
-        )
+#         line_pay = LinePay()
+#         info = line_pay.pay(product_name='carTest',
+#                             amount=total_cost,
+#                             order_id=order_uuid,
+#                             product_image_url=STORE_IMAGE_URL)  
+#         pay_web_url = info['paymentUrl']['web'] 
+#         transaction_id = info['transactionId']
+#         order.transaction_id = transaction_id   #登錄官方回傳值
+#         order.save()
+#         msg = TemplateSendMessage(
+#             alt_text='Thanks message',
+#             template=ButtonsTemplate(
+#                 text='請點選下方金額進行LinePay支付',
+#                 actions=[
+#                     URIAction(label=f'Pay NT${total_cost}', uri=pay_web_url)
+#                 ]
+#             )
+#         )
 
-    elif order.is_pay == True:        
-        msg = TextSendMessage(text=f"此訂單您已經付款")
+#     elif order.is_pay == True:        
+#         msg = TextSendMessage(text=f"此訂單您已經付款")
 
-    return msg
+#     return msg
 
-class LinePay():
-    def __init__(self, currency='TWD'):
-        self.channel_id = LINE_PAY_ID
-        self.secret = LINE_PAY_SECRET
-        self.redirect_url = 'https://cartest-cuk4.onrender.com/confirm'   #((需要改))
-        self.currency = currency
+# class LinePay():
+#     def __init__(self, currency='TWD'):
+#         self.channel_id = LINE_PAY_ID
+#         self.secret = LINE_PAY_SECRET
+#         self.redirect_url = 'https://cartest-cuk4.onrender.com/confirm'   #((需要改))
+#         self.currency = currency
 
-    def _headers(self, **kwargs): #會自動帶入上述三個設定
-        return {**{'Content-Type': 'application/json',
-                   'X-LINE-ChannelId': self.channel_id,
-                   'X-LINE-ChannelSecret': self.secret},
-                **kwargs}
+#     def _headers(self, **kwargs): #會自動帶入上述三個設定
+#         return {**{'Content-Type': 'application/json',
+#                    'X-LINE-ChannelId': self.channel_id,
+#                    'X-LINE-ChannelSecret': self.secret},
+#                 **kwargs}
 
-    def pay(self, product_name, amount, order_id, product_image_url=None):
-        data = {    #pay方法用字典帶入我們所需要的值
-            'productName': product_name,
-            'amount': amount,
-            'currency': self.currency,
-            'confirmUrl': self.redirect_url,
-            'orderId': order_id,
-            'productImageUrl': product_image_url
-        }
-        #把上面資料轉換成json格式並帶入headers，利用post方法送出資料
-        response = requests.post(PAY_API_URL, headers=self._headers(), data=json.dumps(data).encode('utf-8'))
-        #response就是line的回應
-        return self._check_response(response)   #取得回應後透過_check_response確認
+#     def pay(self, product_name, amount, order_id, product_image_url=None):
+#         data = {    #pay方法用字典帶入我們所需要的值
+#             'productName': product_name,
+#             'amount': amount,
+#             'currency': self.currency,
+#             'confirmUrl': self.redirect_url,
+#             'orderId': order_id,
+#             'productImageUrl': product_image_url
+#         }
+#         #把上面資料轉換成json格式並帶入headers，利用post方法送出資料
+#         response = requests.post(PAY_API_URL, headers=self._headers(), data=json.dumps(data).encode('utf-8'))
+#         #response就是line的回應
+#         return self._check_response(response)   #取得回應後透過_check_response確認
 
-    def confirm(self, transaction_id, amount):  #首先會接收transaction_id, total_cost
-        data = json.dumps({#接著把這些資料轉成json格式
-            'amount': amount,
-            'currency': self.currency
-        }).encode('utf-8')
-        response = requests.post(CONFIRM_API_URL.format(transaction_id), headers=self._headers(), data=data)
+#     def confirm(self, transaction_id, amount):  #首先會接收transaction_id, total_cost
+#         data = json.dumps({#接著把這些資料轉成json格式
+#             'amount': amount,
+#             'currency': self.currency
+#         }).encode('utf-8')
+#         response = requests.post(CONFIRM_API_URL.format(transaction_id), headers=self._headers(), data=data)
 
-        return self._check_response(response)
+#         return self._check_response(response)
 
-    def _check_response(self, response):
-        res_json = response.json()
-        print(f"returnCode: {res_json['returnCode']}")
-        print(f"returnMessage: {res_json['returnMessage']}")
+#     def _check_response(self, response):
+#         res_json = response.json()
+#         print(f"returnCode: {res_json['returnCode']}")
+#         print(f"returnMessage: {res_json['returnMessage']}")
 
-        if 200 <= response.status_code < 300:
-            if res_json['returnCode'] == '0000':#確認狀態為0000再return res_json['info']
-                return res_json['info']
-        #裡面的資料包含有付款的URL & transaction_id
-        raise Exception('{}:{}'.format(res_json['returnCode'], res_json['returnMessage']))
+#         if 200 <= response.status_code < 300:
+#             if res_json['returnCode'] == '0000':#確認狀態為0000再return res_json['info']
+#                 return res_json['info']
+#         #裡面的資料包含有付款的URL & transaction_id
+#         raise Exception('{}:{}'.format(res_json['returnCode'], res_json['returnMessage']))

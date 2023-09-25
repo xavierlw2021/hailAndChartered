@@ -209,12 +209,12 @@ def carServiceCheck(event): #包車預約確認
     appointmentDate = data_list[1]
     passengerAmount = data_list[2]
     spnd = dict(parse_qsl(event.postback.data)).get('spnd')
-    spndString = f"{spnd[:5]}..." if spnd != 0 else "無"
+    # spndString = f"{spnd[:5]}..." if spnd != 0 else "無"    
     message = FlexSendMessage(
         alt_text="包車預約單",
         contents={
             "type": "carousel",
-            "contents": {
+            "contents": [{
                 "type": "bubble",
                 "hero": {
                     "type": "image",
@@ -288,7 +288,7 @@ def carServiceCheck(event): #包車預約確認
                                 },
                                 {
                                     "type": "text",
-                                    "text": f"{passengerAmount}人",
+                                    "text": str(passengerAmount)+"人",
                                     "wrap": True,
                                     "color": "#000000",
                                     "size": "lg",
@@ -321,7 +321,7 @@ def carServiceCheck(event): #包車預約確認
                             },
                             {
                                 "type": "text",
-                                "text": f"{cartype.chtdStartPrice}"
+                                "text": "$"+str(cartype.chtdStartPrice)
                             }
                             ],
                             "spacing": "sm"
@@ -339,7 +339,7 @@ def carServiceCheck(event): #包車預約確認
                             },
                             {
                                 "type": "text",
-                                "text": f"{cartype.chtdAlldayPrice}"
+                                "text": "$"+str(cartype.chtdAlldayPrice)
                             }
                             ],
                             "spacing": "sm"
@@ -357,7 +357,7 @@ def carServiceCheck(event): #包車預約確認
                             },
                             {
                                 "type": "text",
-                                "text": f"{cartype.timeOutPrice}/小時",
+                                "text": "$"+str(cartype.timeOutPrice)+"/小時",
                                 "size": "sm"
                             }
                             ],
@@ -373,14 +373,15 @@ def carServiceCheck(event): #包車預約確認
                         "action": {
                         "type": "uri",
                         "label": "確認預約",
-                        "uri": "https://linecorp.com"
+                        "uri": f"action=chtdBooking&dscp={dataString}"
                         },
                         "color": "#000000"
                     }
                     ],
                     "margin": "lg"
                 }
-                }})
+                }]})
+    return message
     #                         {
     #                             "type": "box",
     #                             "layout": "horizontal",
@@ -433,4 +434,4 @@ def carServiceCheck(event): #包車預約確認
     #         }
     #     }
     # ) 
-    return message
+    # return message
