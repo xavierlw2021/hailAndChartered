@@ -24,7 +24,7 @@ class chartered_order(models.Model):
     appointmentDate = models.DateTimeField()    #預約日期
     carType = models.CharField(max_length=50)   #預約車種
     passengerAmount = models.PositiveIntegerField(default=2)    #乘客數
-    questNote = models.CharField(max_length=100)    #客戶特殊需求
+    questNote = models.CharField(max_length=100, blank=True, null=True)    #客戶特殊需求
     class Meta:
         ordering = ('-appointmentDate',)
 

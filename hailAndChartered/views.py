@@ -89,8 +89,6 @@ def callback(request):
                     ))
                 elif "輸入人數:" in msgtext:  #包車step2
                     #字串整理
-                    # f_msg = msgtext.split('/')[0].split(":")
-                    # n_msg = f_msg[0]+"/"+f_msg[1]+":"+f_msg[2]+"/"+msgtext[-1]
                     n_msg = msgtext.replace('輸入人數:','')
                     nowT = str(datetime.datetime.now())
                     after7Day = str(datetime.datetime.now() + datetime.timedelta(days=7))
@@ -144,12 +142,11 @@ def callback(request):
                 elif p_action == "checkout":  #包車step4                   
                     message.append(carServiceCheck(event))
                 elif p_action == "chtdBooking":  #包車寫入
-                    # carId = data.get('cId')   
-                    # passengerAmount = data.get('Num')
-                    # appointmentDate = data.get('chDt')
-                    message.append(TextSendMessage(text=f"appointmentDate={data.get('chDt')}, carType={data.get('cId')},passengerAmount={data.get('Num')}"))
-                    # order_post = models.car_order.objects.create(appointmentDate = data_list[1], carType = data_list[0],\
-                    #                                             passengerAmount = data_list[2], questNote = questNote)
+                    cartype = models.charteredOption.objects.get(id=int(data.get('cId'))).carType
+                    passengerAmount = int(data.get('Num'))
+                    appointmentDate = datetime.datetime.strptime(data.get('chDt'),'%Y-%m-%d %H:%M')                   
+                    order_post = models.car_order.objects.create(appointmentDate = appointmentDate, carType = cartype,\
+                                                                passengerAmount = passengerAmount)
                 # elif p_action == 'carOpyionPay':  #結帳 
                 #     message.append(linePay_confirm(event)) 
     

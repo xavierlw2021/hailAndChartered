@@ -1,6 +1,6 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import hailOption, charteredOption, questProfile, car_order
+from .models import hailOption, charteredOption, chartered_order, questProfile, car_order
 
 class hailOptionAdmin(ImportExportModelAdmin):
     list_display = ('id','agencyName','agencyNumber','agencyUrl','imgUrl','onOff',)
@@ -9,6 +9,11 @@ class hailOptionAdmin(ImportExportModelAdmin):
 class charteredOptionAdmin(ImportExportModelAdmin):
     list_display = ('id','carType','carImgUrl','chtdStartPrice','chtdAlldayPrice',\
                     'timeOutPrice','onOff',)
+    ordering = ('id',)
+
+class charteredOrderAdmin(ImportExportModelAdmin):
+    list_display = ('id','pub_datetime','appointmentDate','carType','passengerAmount',\
+                    'questNote',)
     ordering = ('id',)
 
 class questProfileAdmin(ImportExportModelAdmin):
@@ -23,5 +28,6 @@ class carOrderAdmin(ImportExportModelAdmin):
 
 admin.site.register(hailOption, hailOptionAdmin)
 admin.site.register(charteredOption, charteredOptionAdmin)
+admin.site.register(chartered_order, charteredOrderAdmin)
 admin.site.register(questProfile, questProfileAdmin)
 admin.site.register(car_order, carOrderAdmin)
