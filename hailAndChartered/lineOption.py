@@ -201,12 +201,16 @@ def CharteredList():    #包車選單
     )
     return flex_message
 
-def carServiceCheck(event): #包車預約確認
-    data = dict(parse_qsl(event.postback.data))
-    carId = data.get('cId')
+def carServiceCheck(cId,Num,chDt): #包車預約確認
+# def carServiceCheck(event): #包車預約確認
+    # data = dict(parse_qsl(event.postback.data))
+    # carId = data.get('cId')
+    carId = cId
     cartype = models.charteredOption.objects.get(id=int(carId))    
-    passengerAmount = data.get('Num')
-    appointmentDate = data.get('chDt').replace('T',' ') 
+    # passengerAmount = data.get('Num')
+    passengerAmount = Num
+    # appointmentDate = data.get('chDt').replace('T',' ')
+    appointmentDate = chDt
     message = FlexSendMessage(
         alt_text="包車預約單",
         contents={
@@ -370,7 +374,7 @@ def carServiceCheck(event): #包車預約確認
                         "action": {
                             "type": "postback",
                             "label": "確認預約",
-                            "data": f"action=chtdBooking&cId={data.get('cId')}&Num={data.get('Num')}&chDt={data.get('chDt')}"
+                            "data": f"action=chtdBooking&cId={cId}&Num={Num}&chDt={chDt}"
                         },
                         "color": "#4F709C"
                     }

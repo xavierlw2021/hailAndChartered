@@ -225,16 +225,17 @@ def callback(request):
                     cId = event.postback.data.split('/')[0]
                     Num = event.postback.data.split('/')[1]
                     chDt = event.postback.params.get("datetime")
-                    message.append(TextSendMessage(text="生成預約單",
-                                                   quick_reply=QuickReply(
-                                                       items=[
-                                                            QuickReplyButton(
-                                                                action=PostbackAction(
-                                                                    label='確定送出',
-                                                                    display_text='確定送出',
-                                                                    data=f'action=checkout&cId={cId}&Num={Num}&chDt={chDt}'))                                                        
-                                                       ]
-                                                   )))
+                    message.append(carServiceCheck(cId,Num,chDt))
+                    # message.append(TextSendMessage(text="生成預約單",
+                    #                                quick_reply=QuickReply(
+                    #                                    items=[
+                    #                                         QuickReplyButton(
+                    #                                             action=PostbackAction(
+                    #                                                 label='確定送出',
+                    #                                                 display_text='確定送出',
+                    #                                                 data=f'action=checkout&cId={cId}&Num={Num}&chDt={chDt}'))                                                        
+                    #                                    ]
+                    #                                )))
                 # elif "特殊需求描述:" in msgtext:  #包車step6
                 #     n_msg = msgtext.replace('/特殊需求描述:','&spnd=')
                 #     message.append(TextSendMessage(text="送出?",
