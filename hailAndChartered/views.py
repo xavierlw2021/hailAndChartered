@@ -223,7 +223,7 @@ def callback(request):
                     print(event.postback)
                     cId = event.postback.data.split('/')[0]
                     Num = event.postback.data.split('/')[1]
-                    chDt = event.postback.params.datetime
+                    chDt = event.postback.params[datetime]
                     message.append(TextSendMessage(text="生成預約單",
                                                    quick_reply=QuickReply(
                                                        items=[
