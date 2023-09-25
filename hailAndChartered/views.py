@@ -221,6 +221,7 @@ def callback(request):
                 
                 elif event.postback.params.get("datetime"):   #包車step3
                     print(event.postback)
+                    print(event.postback.params.get("datetime"))
                     cId = event.postback.data.split('/')[0]
                     Num = event.postback.data.split('/')[1]
                     chDt = event.postback.params[datetime]
@@ -231,13 +232,7 @@ def callback(request):
                                                                 action=PostbackAction(
                                                                     label='確定送出',
                                                                     display_text='確定送出',
-                                                                    data=f'action=checkout&cId={cId}&Num={Num}&chDt={chDt}'))
-                                                        #     QuickReplyButton(
-                                                        #         action=URIAction(
-                                                        #             label="填寫需求",
-                                                        #             uri='line://oaMessage/{bid}/?{message}'.format(bid='@523goiva',message=quote(f"{n_msg}/特殊需求描述:")),
-                                                        #        )
-                                                        #    )
+                                                                    data=f'action=checkout&cId={cId}&Num={Num}&chDt={chDt}'))                                                        
                                                        ]
                                                    )))
                 # elif "特殊需求描述:" in msgtext:  #包車step6
