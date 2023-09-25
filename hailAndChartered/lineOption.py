@@ -215,172 +215,177 @@ def carServiceCheck(event): #包車預約確認
         contents={
             "type": "carousel",
             "contents": [{
-                "type": "bubble",
-                "hero": {
-                    "type": "image",
-                    "url": cartype.carImgUrl,
-                    "size": "full",
-                    "aspectRatio": "20:13",
-                    "aspectMode": "cover"
-                },
-                "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [                        
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [ 
-                            {
-                                "type": "text",
-                                "text": "車種",
-                                "size": "md",
-                                "weight": "bold",
-                                "align": "start"
-                            },
-                            {
-                                "type": "text",
-                                "text": cartype.carType,
-                                "size": "xl",
-                                "weight": "bold"
-                            }
-                        ]
-                    },
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "margin": "lg",
-                        "spacing": "sm",
-                        "contents": [
-                            {
-                                "type": "box",
-                                "layout": "baseline",
-                                "spacing": "sm",
-                                "contents": [
-                                {
-                                    "type": "text",
-                                    "text": "預約時間",
-                                    "color": "#000000",
-                                    "size": "lg",
-                                    "flex": 1
-                                },
-                                {
-                                    "type": "text",
-                                    "text": appointmentDate,
-                                    "wrap": True,
-                                    "color": "#000000",
-                                    "size": "lg",
-                                    "flex": 2
-                                }
-                                ]
-                            },
-                            {
-                                "type": "box",
-                                "layout": "baseline",
-                                "spacing": "sm",
-                                "contents": [
-                                {
-                                    "type": "text",
-                                    "text": "預計人數",
-                                    "color": "#000000",
-                                    "size": "lg",
-                                    "flex": 1
-                                },
-                                {
-                                    "type": "text",
-                                    "text": str(passengerAmount)+"人",
-                                    "wrap": True,
-                                    "color": "#000000",
-                                    "size": "lg",
-                                    "flex": 2
-                                }
-                                ]
-                            }
-                        ]
-                    }]
-                },
-                "footer": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "spacing": "sm",
-                    "contents": [
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "contents": [
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "半天(5小時)",
-                                "color": "#000000",
-                                "flex": 1,
-                                "align": "center"
-                            },
-                            {
-                                "type": "text",
-                                "text": "$"+str(cartype.chtdStartPrice)
-                            }
-                            ],
-                            "spacing": "sm"
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "全天(10小時)",
-                                "color": "#000000",
-                                "flex": 1,
-                                "align": "center"
-                            },
-                            {
-                                "type": "text",
-                                "text": "$"+str(cartype.chtdAlldayPrice)
-                            }
-                            ],
-                            "spacing": "sm"
-                        },
-                        {
-                            "type": "box",
-                            "layout": "baseline",
-                            "contents": [
-                            {
-                                "type": "text",
-                                "text": "逾時",
-                                "color": "#000000",
-                                "flex": 1,
-                                "align": "center"
-                            },
-                            {
-                                "type": "text",
-                                "text": "$"+str(cartype.timeOutPrice)+"/小時",
-                                "size": "sm"
-                            }
-                            ],
-                            "spacing": "sm"
-                        }
-                        ],
-                        "spacing": "sm"
-                    },
-                    {
-                        "type": "button",
-                        "style": "link",
-                        "height": "sm",
-                        "action": {
-                        "type": "uri",
-                        "label": "確認預約",
-                        "uri": f"action=chtdBooking&dscp={dataString}"
-                        },
-                        "color": "#000000"
-                    }
-                    ],
-                    "margin": "lg"
-                }
-                }]})
+  "type": "bubble",
+  "hero": {
+    "type": "image",
+    "url": "https://i.imgur.com/iXaK68p.jpg",
+    "size": "full",
+    "aspectRatio": "20:13",
+    "aspectMode": "cover",
+    "action": {
+      "type": "uri",
+      "uri": "http://linecorp.com/"
+    }
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "預約車種",
+            "size": "md",
+            "weight": "bold",
+            "align": "start"
+          },
+          {
+            "type": "text",
+            "text": "CAMRY_4人座",
+            "size": "xl",
+            "weight": "bold"
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "lg",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "baseline",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "預約日期",
+                "color": "#000000",
+                "size": "lg",
+                "flex": 1
+              },
+              {
+                "type": "text",
+                "text": "2023/9/24 10:00",
+                "wrap": True,
+                "color": "#000000",
+                "size": "lg",
+                "flex": 2
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "預計人數",
+                "color": "#000000",
+                "size": "lg",
+                "flex": 1
+              },
+              {
+                "type": "text",
+                "text": "4 人",
+                "wrap": True,
+                "color": "#000000",
+                "size": "lg",
+                "flex": 2
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "spacing": "sm",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "半天(5小時)",
+                "color": "#000000",
+                "flex": 1,
+                "align": "center"
+              },
+              {
+                "type": "text",
+                "text": "$3000"
+              }
+            ],
+            "spacing": "sm"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "全天(10小時)",
+                "color": "#000000",
+                "flex": 1,
+                "align": "center"
+              },
+              {
+                "type": "text",
+                "text": "$3000"
+              }
+            ],
+            "spacing": "sm"
+          },
+          {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": "逾時",
+                "color": "#000000",
+                "flex": 1,
+                "align": "center"
+              },
+              {
+                "type": "text",
+                "text": "$600/小時",
+                "size": "sm"
+              }
+            ],
+            "spacing": "sm"
+          }
+        ],
+        "spacing": "sm"
+      },
+      {
+        "type": "button",
+        "style": "link",
+        "height": "sm",
+        "action": {
+          "type": "uri",
+          "label": "確認預約",
+          "uri": "https://linecorp.com"
+        },
+        "color": "#000000"
+      }
+    ],
+    "margin": "lg"
+  }
+}]})
     return message
     #                         {
     #                             "type": "box",
