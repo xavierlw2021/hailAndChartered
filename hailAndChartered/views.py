@@ -213,8 +213,9 @@ def callback(request):
                     spnd = data.get('spnd')
                     questNote = spnd if spnd!="0" else ""
                     data_list = dscp.split('/')
-                    order_post = models.car_order.objects.create(appointmentDate = data_list[1], carType = data_list[0],\
-                                                                passengerAmount = data_list[2], questNote = questNote)
+                    message.append(TextSendMessage(text=f"appointmentDate={data_list[1]}, carType={data_list[0]},passengerAmount={data_list[2]},questNote={questNote}"))
+                    # order_post = models.car_order.objects.create(appointmentDate = data_list[1], carType = data_list[0],\
+                    #                                             passengerAmount = data_list[2], questNote = questNote)
                 # elif p_action == 'carOpyionPay':  #結帳 
                 #     message.append(linePay_confirm(event)) 
     
