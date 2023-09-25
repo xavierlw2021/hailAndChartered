@@ -143,9 +143,12 @@ def callback(request):
                     message.append(carServiceCheck(event))
                 elif p_action == "chtdBooking":  #包車寫入
                     cartype = models.charteredOption.objects.get(id=int(data.get('cId'))).carType
+                    print(cartype, type(cartype))
                     passengerAmount = int(data.get('Num'))
-                    appointmentDate = datetime.datetime.strptime(data.get('chDt'),'%Y-%m-%d %H:%M')                   
-                    order_post = models.car_order.objects.create(appointmentDate = appointmentDate, carType = cartype,\
+                    print(passengerAmount, type(passengerAmount))
+                    appointmentDate = datetime.datetime.strptime(data.get('chDt'),'%Y-%m-%d %H:%M')  
+                    print(appointmentDate, type(appointmentDate))                 
+                    order_post = models.chartered_order.objects.create(appointmentDate = appointmentDate, carType = cartype,\
                                                                 passengerAmount = passengerAmount)
                 # elif p_action == 'carOpyionPay':  #結帳 
                 #     message.append(linePay_confirm(event)) 
