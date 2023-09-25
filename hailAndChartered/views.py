@@ -146,11 +146,11 @@ def callback(request):
                     passengerAmount = int(data.get('Num'))
                     appointmentDate = datetime.datetime.strptime(data.get('chDt'),'%Y-%m-%d %H:%M')  
                     print(appointmentDate, type(appointmentDate))
-                    a = models.hailOption.objects.all.count()
-                    b = models.charteredOption.objects.all.count()
-                    c = models.chartered_order.objects.all.count()
-                    d = models.questProfile.objects.all.count()
-                    e = models.car_order.objects.all.count()
+                    a = models.hailOption.objects.all().count()
+                    b = models.charteredOption.objects.all().count()
+                    c = models.chartered_order.objects.all().count()
+                    d = models.questProfile.objects.all().count()
+                    e = models.car_order.objects.all().count()
                     print(a, b,c,d,e)
                 
                     try:
