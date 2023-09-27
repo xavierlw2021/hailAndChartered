@@ -116,10 +116,10 @@ def callback(request):
                     n_pwd, n_qr = KeyCardService().work(uid, fake_startDt, fake_finishDt)
                     message.append(TextSendMessage(text=f"您的密碼為{n_pwd}"))
 
-                    message.append(ImageSendMessage(
-                        original_content_url=n_qr,
-                        preview_image_url=n_qr
-                    ))
+                    # message.append(ImageSendMessage(
+                    #     original_content_url=n_qr,
+                    #     preview_image_url=n_qr
+                    # ))
 
             # elif isinstance(event, PostbackEvent):
             #     data = dict(parse_qsl(event.postback.data)) #先將postback中的資料轉成字典
