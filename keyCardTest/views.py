@@ -139,19 +139,19 @@ def callback(request):
                     n_pwd, closeTime = KeyCardService().work(uid, name, fake_startDt, fake_finishDt)
                     #=========================
                     message.append(TextSendMessage(text=f"您的房卡密碼為:{n_pwd}/在{closeTime}前，您可以將此封訊息轉傳給您的同行家人或朋友，讓他們按下密碼共用，他們將可以與您共用此密碼與QRCode"))
-                    message.append(TextSendMessage(text="顯示QRCode",
-                                                   quick_reply=QuickReply(
-                                                       items=[QuickReplyButton(
-                                                                action=URIAction(
-                                                                    label="顯示QRCode",
-                                                                    # uri=f'/yourQRCode/{wid}',
-                                                                    #=========================
-                                                                    uri=f'/yourQRCode/1',
-                                                                    #=========================
-                                                               )
-                                                           )
-                                                       ]
-                                                   )))
+                    # message.append(TextSendMessage(text="顯示QRCode",
+                    #                                quick_reply=QuickReply(
+                    #                                    items=[QuickReplyButton(
+                    #                                             action=URIAction(
+                    #                                                 label="顯示QRCode",
+                    #                                                 # uri=f'/yourQRCode/{wid}',
+                    #                                                 #=========================
+                    #                                                 uri=f'/yourQRCode/1',
+                    #                                                 #=========================
+                    #                                            )
+                    #                                        )
+                    #                                    ]
+                    #                                )))
 
                 elif '您的密碼為:' in msgtext:
                     getPwd = msgtext.split(':')[1].split('/在')[0]
