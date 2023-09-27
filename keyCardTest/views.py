@@ -15,15 +15,6 @@ import base64
 
 from keyCardTest import models
 
-def show_QRCode(request, qid):
-    # Pwd = models.qrcode_storage.objects.get(id = qid).pwd
-    # QRCode_data = KeyCardService.qrcode_src_gen(Pwd)
-    #=========================
-    Pwd = secrets.token_urlsafe()
-    QRCode_data = KeyCardService.qrcode_src_gen(Pwd)
-    #=========================
-    return render(request, 'yourQRCode.html', {'QRCode_data': QRCode_data})
-
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 parser = WebhookParser(settings.LINE_CHANNEL_SECRET)
 
@@ -185,3 +176,12 @@ def callback(request):
         return HttpResponse()
     else:
         return HttpResponseBadRequest()
+    
+def show_QRCode(request, qid):
+    # Pwd = models.qrcode_storage.objects.get(id = qid).pwd
+    # QRCode_data = KeyCardService.qrcode_src_gen(Pwd)
+    #=========================
+    Pwd = secrets.token_urlsafe()
+    QRCode_data = KeyCardService.qrcode_src_gen(Pwd)
+    #=========================
+    return render(request, 'yourQRCode.html', {'QRCode_data': QRCode_data})
