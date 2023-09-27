@@ -8,9 +8,10 @@ class qrcode_storage(models.Model):
     start_datetime = models.DateTimeField(blank=True, null=True)    #生效開始時間
     limit_datetime = models.DateTimeField(blank=True, null=True)    #終止新增id時間
     finish_datetime = models.DateTimeField(blank=True, null=True)    #終止效用時間
-    main_userId = models.CharField(max_length=40, blank=True, null=True)   #官方內建ID
+    main_userId = models.CharField(max_length=40, blank=True, null=True)   #預約者官方內建ID
+    main_userName = models.CharField(max_length=40, blank=True, null=True)  #預約者暱稱
     family_userId = models.CharField(max_length=400, blank=True, null=True)   #關聯者ID list
-    be_canceled = models.BooleanField(default=True)    #生效與否
+    be_alive= models.BooleanField(default=True)    #生效與否
 
     class Meta:
         ordering = ('-pub_datetime',)

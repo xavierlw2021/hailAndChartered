@@ -128,6 +128,7 @@ def callback(request):
                         message.append(TextSendMessage(text='抱歉，此包車預約並非您本人提出，無法更動。'))
 
             elif isinstance(event, PostbackEvent):
+                uid = event.source.user_id
                 data = dict(parse_qsl(event.postback.data)) #先將postback中的資料轉成字典
                 p_action = data.get('action') #get action裡面的值
                 if p_action == "heil":  #叫車選單
