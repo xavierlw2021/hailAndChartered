@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>Your QRCode</title>
+    <!-- Bootstrap CSS -->         
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+    <div class="row">
+        <div class='col-sm-12 col-md-12'>
+            <div class="card" style="width: 100%;">
+            {% if QRCode_data is not None %}
+                <img class="card-img-top" src="{{QRCode_data}}" alt="Card image cap">
+            {% else %}
+                <p><h5 style='font-family:微軟正黑體;' align="center">QRCode過期</h5></p>    
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
