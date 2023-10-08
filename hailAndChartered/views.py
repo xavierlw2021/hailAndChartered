@@ -251,7 +251,7 @@ class LinePay():
     def __init__(self, currency='TWD'):
         self.channel_id = LINE_PAY_ID
         self.secret = LINE_PAY_SECRET
-        self.redirect_url = 'https://d932-49-159-211-14.ngrok-free.app/confirm'   #((改))
+        self.redirect_url = 'https://cartest-bau9.onrender.com/confirm'   #((改))
         self.currency = currency
 
     def _headers(self, **kwargs): #會自動帶入上述三個設定
